@@ -26,7 +26,6 @@ def remplirInst():
                 infosInstallations["Adresse"] = val["InsLibelleVoie"]
                 infosG[str(compteur)] = copy(infosInstallations)
                 compteur = compteur +1
-    print(infosG)
     return infosG
 
 

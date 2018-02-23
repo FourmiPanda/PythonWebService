@@ -39,8 +39,9 @@ def __createTable(conn,name,mat):
     TABLES = {}
 
     newlist = list()
-    for i in mat[0].keys():
+    for i in mat[str(0)].keys():
         newlist.append(i)
+
 
     table_string = ""
     table_string = "CREATE TABLE "+name+" ("
@@ -74,9 +75,9 @@ def __createTable(conn,name,mat):
         query = "INSERT INTO "+name+" values("
         for type in newlist:
             if type == newlist[len(newlist) - 1]:
-                query += "'" +str(mat[ens][type]) + "'"
+                query += "'" +str(mat[str(ens)][type]) + "'"
             else:
-                query += "'" + str(mat[ens][type]) + "',"
+                query += "'" + str(mat[str(ens)][type]) + "',"
         query+=")"
         cur.execute(query)
     cursor.close()
