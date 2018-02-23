@@ -41,7 +41,7 @@ def __createTable(conn,name,mat):
     TABLES = {}
 
     TABLES[name] = ("CREATE TABLE "+name+" ( `arg1` int(12), `arg2` int(13))")
-    print(mat)
+
     cursor = conn.cursor(buffered=True)
 
     for name, ddl in TABLES.items():

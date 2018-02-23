@@ -7,7 +7,7 @@ conn = server.__start()
 print("Connected")
 
 mat = parsing.remplirInst()
-#print(mat[0]["NomIns"])
+print(mat[0]["NomIns"])
 
 server.__createTable(conn,"Installations",mat)
 
