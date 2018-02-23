@@ -4,13 +4,17 @@ import json
 infosG = dict()
 infosG = {}
 infosCol = []
+infosInstallations = dict()
+infosEquipements = dict()
+infosActivites = dict()
+
 
 def remplirInst():
     '''
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les installations
     '''
 
-    infosInstallations = dict()
+
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J335/installations_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
@@ -32,7 +36,6 @@ def remplirEquip():
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les equipements
     '''
 
-    infosEquipements = dict()
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J336/equipements_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
@@ -55,7 +58,6 @@ def remplirActi():
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les activites
     '''
 
-    infosActivites = dict()
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J334/equipements_activites_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
