@@ -25,7 +25,7 @@ def __query_city(conn):
         print(pseudo)
 
 
-def __createTable(conn,name,map):
+def __createTable(conn,name,mat):
 
     try:
         query = ("DROP TABLE "+name+";")
@@ -35,18 +35,14 @@ def __createTable(conn,name,map):
             print(err.msg+" cannot drop.")
     else:
         print("OK. Drop table "+name)
-    cursor = conn.cursor(buffered=True)
+
+
 
     TABLES = {}
 
-    TABLES[name] = (
-        "CREATE TABLE "+name+" ("
-        "  `arg1` int(11) NOT NULL,"
-        "  `arg2` int(11) NOT NULL"
-        ")")
-    # test = "CREATE TABLE "+name+" ("
-    # for value in map:
-    #     test=test+" "
+    TABLES[name] = ("CREATE TABLE "+name+" ( `arg1` int(12), `arg2` int(13))")
+    print(mat)
+    cursor = conn.cursor(buffered=True)
 
     for name, ddl in TABLES.items():
         try:
@@ -61,3 +57,5 @@ def __createTable(conn,name,map):
             print("OK")
 
     cursor.close()
+
+
