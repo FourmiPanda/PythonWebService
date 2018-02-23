@@ -17,8 +17,8 @@ def __close(conn):
     conn.close()
 
 
-def __query_city(conn):
-    query = "SELECT * from pseudonyme"
+def __query_city(conn,city):
+    query = "SELECT * from Installations where Commune='"+city+"'"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     for (pseudo) in cur:
@@ -36,11 +36,24 @@ def __createTable(conn,name,mat):
     else:
         print("OK. Drop table "+name)
 
-
-
     TABLES = {}
 
-    TABLES[name] = ("CREATE TABLE "+name+" ( `arg1` int(12), `arg2` int(13))")
+    newlist = list()
+    for i in mat[0].keys():
+        newlist.append(i)
+
+    table_string = ""
+    table_string = "CREATE TABLE "+name+" ("
+    for val in newlist:
+        if val == newlist[len(newlist)-1]:
+            table_string += "`" + val + "` varchar(255) DEFAULT NULL"
+        else:
+            table_string += "`" + val + "` varchar(255) DEFAULT NULL,"
+    table_string+=")"
+
+    print(table_string)
+
+    TABLES[name] = (table_string)
 
     cursor = conn.cursor(buffered=True)
 
@@ -56,6 +69,16 @@ def __createTable(conn,name,mat):
         else:
             print("OK")
 
+    print("*-*-*-* Insertion des données *-*-*-*")
+    for ens in range(0,len(mat)):
+        query = "INSERT INTO "+name+" values("
+        for type in newlist:
+            if type == newlist[len(newlist) - 1]:
+                query += "'" +str(mat[ens][type]) + "'"
+            else:
+                query += "'" + str(mat[ens][type]) + "',"
+        query+=")"
+        cur.execute(query)
     cursor.close()
 
 

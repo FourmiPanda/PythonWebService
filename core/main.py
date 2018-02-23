@@ -7,11 +7,10 @@ conn = server.__start()
 print("Connected")
 
 mat = parsing.remplirInst()
-print(mat[0]["NomIns"])
 
 server.__createTable(conn,"Installations",mat)
 
-server.__query_city(conn)
+server.__query_city(conn,"dadar")
 
 server.__close(conn)
 
