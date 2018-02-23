@@ -34,9 +34,6 @@ def __createTable(conn,name,map):
         print("OK. Drop table "+name)
     cursor = conn.cursor(buffered=True)
 
-
-
-
     TABLES = {}
 
     # TABLES[name] = (
@@ -47,10 +44,6 @@ def __createTable(conn,name,map):
     test = "CREATE TABLE "+name+" ("
     for value in map:
         test=test+" "
-
-
-
-
 
     for name, ddl in TABLES.items():
         try:
