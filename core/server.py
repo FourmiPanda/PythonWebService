@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import mysql.connector
-import config
+import config,html
 from mysql.connector import errorcode
 
 
@@ -75,10 +75,11 @@ def __createTable(conn,name,mat):
         query = "INSERT INTO "+name+" values("
         for type in newlist:
             if type == newlist[len(newlist) - 1]:
-                query += "'" +str(mat[str(ens)][type]) + "'"
+                query += '"' +html.escape(str(mat[str(ens)][type])) + '"'
             else:
-                query += "'" + str(mat[str(ens)][type]) + "',"
+                query += '"' + html.escape(str(mat[str(ens)][type])) + '",'
         query+=")"
+        print(query)
         cur.execute(query)
     cursor.close()
 
