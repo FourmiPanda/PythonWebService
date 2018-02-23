@@ -22,7 +22,7 @@ print("Connected")
 # server.__createTable(conn,"Activites",mat3)
 
 
-server.__query_city(conn,"Nantes")
+server.__query_city(conn,"Châteaubriant")
 
 server.__close(conn)
 

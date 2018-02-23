@@ -18,7 +18,7 @@ def __close(conn):
 
 
 def __query_city(conn,city):
-    query = "SELECT * from Installations where Commune='"+city+"'"
+    query = "SELECT * from Installations where Commune='"+html.escape(city)+"'"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     for (pseudo) in cur:
