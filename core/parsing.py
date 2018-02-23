@@ -1,9 +1,8 @@
 from urllib.request import urlopen
 import json
+from copy import copy
 
 infosG = dict()
-infosG = {}
-infosCol = []
 infosInstallations = dict()
 infosEquipements = dict()
 infosActivites = dict()
@@ -13,7 +12,6 @@ def remplirInst():
     '''
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les installations
     '''
-
 
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J335/installations_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
@@ -26,8 +24,9 @@ def remplirInst():
                 infosInstallations["Commune"] = val["ComLib"]
                 infosInstallations["NomIns"] = val["geo"]["name"]
                 infosInstallations["Adresse"] = val["InsLibelleVoie"]
-                infosG[compteur] = infosInstallations
-                compteur = compteur + 1
+                infosG[str(compteur)] = copy(infosInstallations)
+                compteur = compteur +1
+    print(infosG)
     return infosG
 
 
@@ -49,7 +48,7 @@ def remplirEquip():
                 infosEquipements["Commune"] = val["ComLib"]
                 infosEquipements["NomIns"] = val["InsNom"]
                 infosEquipements["EquId"] = val["EquipementId"]
-                infosG[compteur] = infosEquipements
+                infosG[str(compteur)] = copy(infosEquipements)
                 compteur = compteur + 1
     return infosG
 
@@ -67,6 +66,6 @@ def remplirActi():
                 infosActivites["EquId"] = val["EquipementId"]
                 infosActivites["TypeAct"] = val["ActLib"]
                 infosActivites["Commune"] = val["ComLib"]
-                infosG[compteur] = infosActivites
+                infosG[str(compteur)] = copy(infosActivites)
                 compteur = compteur + 1
     return infosG
