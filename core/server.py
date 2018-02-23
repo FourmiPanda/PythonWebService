@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import mysql.connector
-import config
+import config.config
+from mysql.connector import errorcode
 
 
 def __start():
@@ -39,14 +40,14 @@ def __createTable(conn,name,map):
 
     TABLES = {}
 
-    # TABLES[name] = (
-    #     "CREATE TABLE "+name+" ("
-    #     "  `arg1` int(11) NOT NULL,"
-    #     "  `arg2` int(11) NOT NULL"
-    #     ")")
-    test = "CREATE TABLE "+name+" ("
-    for value in map:
-        test=test+" "
+    TABLES[name] = (
+        "CREATE TABLE "+name+" ("
+        "  `arg1` int(11) NOT NULL,"
+        "  `arg2` int(11) NOT NULL"
+        ")")
+    # test = "CREATE TABLE "+name+" ("
+    # for value in map:
+    #     test=test+" "
 
 
 

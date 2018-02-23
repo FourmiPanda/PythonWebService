@@ -1,4 +1,6 @@
-import server,parsing
+import core.parsing
+
+from core import server
 
 print("Connexion a la DB")
 
@@ -6,9 +8,9 @@ conn = server.__start()
 
 print("Connected")
 
-mat = parsing.remplirInst()
+mat = core.parsing.remplirInst()
 
-server.__createTable(conn,"testCreation")
+server.__createTable(conn, "testCreation")
 
 server.__query_city(conn)
 
