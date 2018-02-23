@@ -10,7 +10,7 @@ def remplirInst():
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les installations
     '''
 
-    infosInstallations = dict()
+    infosinstallations = dict()
     infosInstallations = {}
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J335/installations_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))

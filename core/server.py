@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import mysql.connector
-import config.config
+import config
 from mysql.connector import errorcode
 
 
@@ -12,11 +12,13 @@ def __start():
                                   database=conf.CONST_DATABASE)
     return cnx
 
+
 def __close(conn):
     conn.close()
 
+
 def __query_city(conn):
-    query = ("SELECT * from pseudonyme")
+    query = "SELECT * from pseudonyme"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     for (pseudo) in cur:
