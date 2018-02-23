@@ -11,7 +11,6 @@ def remplirInst():
     '''
 
     infosinstallations = dict()
-    infosInstallations = {}
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J335/installations_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
@@ -34,7 +33,6 @@ def remplirEquip():
     '''
 
     infosEquipements = dict()
-    infosEquipements ={}
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J336/equipements_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
@@ -58,7 +56,6 @@ def remplirActi():
     '''
 
     infosActivites = dict()
-    infosActivites = {}
     raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J334/equipements_activites_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
