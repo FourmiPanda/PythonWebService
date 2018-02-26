@@ -22,8 +22,8 @@ def __query_city(conn,city):
     query = "SELECT * from Installations where Commune='"+html.escape(city)+"'"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
-    for (pseudo) in cur:
-        print(pseudo)
+    result = cur.fetchall()
+    return result
 
 
 def __refresh_DB(conn):
