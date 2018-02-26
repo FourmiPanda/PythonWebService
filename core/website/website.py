@@ -12,6 +12,21 @@ _HTML_BANNER_HEADER = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>" 
 _HTML_BANNER_HEADER2 = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>" \
                                                            "\n<title>Recherche</title>\n<link rel='stylesheet' href='/website/webapp/static/css/liste.css'>\n</head>\n<body>"
 
+_HTML_MAP = "<h3>My Google Maps Demo</h3>\n<div id='map'></div>\n<script>\nfunction initMap() {" \
+            "\nvar uluru = {lat: -25.363, lng: 131.044};" \
+            "\nvar map = new google.maps.Map(document.getElementById('map'), {" \
+            "\nzoom: 4," \
+            "\ncenter: uluru" \
+            "\n});" \
+            "\nvar marker = new google.maps.Marker({" \
+            "\nposition: uluru," \
+            "\nmap: map" \
+            "\n});" \
+            "\n}" \
+            "\n</script>" \
+            "\n<script async defer" \
+            "\nsrc='https://maps.googleapis.com/maps/api/js?key=AIzaSyD7u1GGzhAgTUwKDul3YNJ3-4Qx_Mw3OIU&callback=initMap'>" \
+            "\n</script>"
 
 _HTML_BANNER_FOOTER = "\n</body>\n</html>"
 
@@ -75,7 +90,13 @@ def do_process():
     li_sport = request.query["li_sport"]
 
     conn = server.__start();
-    res = server.__query_city_and_act(conn, html.escape(li_ville),html.escape(li_sport))
+    if li_ville == "":
+        res = server.__query_act(conn,html.escape(li_sport))
+    else :
+        if li_sport == "":
+            res = server.__query_city(conn,html.escape(li_ville))
+        else :
+            res = server.__query_all(conn)
 
     server.__close(conn)
     li = ""
@@ -86,6 +107,6 @@ def do_process():
         li+="</tr>"
 
 
-    return _HTML_BANNER_HEADER2+"<p id='title'>Vous avez rechercher : "+str(li_ville)+" et "+str(li_sport)+"</p>"+"<div><table>"+str(li)+"</table></div>"+_HTML_BANNER_FOOTER
+    return _HTML_BANNER_HEADER2+"<p id='title'>Vous avez rechercher : "+str(li_ville)+" et "+str(li_sport)+"</p>"+"<div><table>"+str(li)+"</table></div>"+_HTML_MAP+_HTML_BANNER_FOOTER
 
 run(host='localhost', port=1337)

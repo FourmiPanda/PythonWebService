@@ -19,7 +19,17 @@ def __close(conn):
 
 
 def __query_city(conn,city):
-    query = "SELECT * from Installations where Commune='"+html.escape(city)+"'"
+    print("QueryCity")
+    query = "SELECT * from Installations where Commune='"+html.escape(city)+"' ORDER BY 1 ASC"
+    cur = conn.cursor(buffered=True)
+    cur.execute(query)
+    result = cur.fetchall()
+    return result
+
+
+def __query_act(conn,act):
+    print("QueryAct")
+    query = "SELECT * from Installations where TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     result = cur.fetchall()
@@ -27,12 +37,21 @@ def __query_city(conn,city):
 
 
 def __query_city_and_act(conn,city,act):
-    query = "SELECT * from Installations where Commune='"+html.escape(city)+"' and TypeAct='"+html.escape(act)+"'"
+    print("QueryCity&Act")
+    query = "SELECT * from Installations where Commune='"+html.escape(city)+"' and TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     result = cur.fetchall()
     return result
 
+
+def __query_all(conn):
+    print("QueryAll")
+    query = "SELECT * from Installations ORDER BY 1 ASC"
+    cur = conn.cursor(buffered=True)
+    cur.execute(query)
+    result = cur.fetchall()
+    return result
 
 
 def __get_city(conn):
