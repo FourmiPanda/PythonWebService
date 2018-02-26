@@ -12,23 +12,12 @@ _HTML_BANNER_HEADER = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>" 
 _HTML_BANNER_HEADER2 = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>" \
                                                            "\n<title>Recherche</title>\n<link rel='stylesheet' href='/website/webapp/static/css/liste.css'>\n</head>\n<body>"
 
-_HTML_MAP = "<h3>My Google Maps Demo</h3>\n<div id='map'></div>\n<script>\nfunction initMap() {" \
-            "\nvar uluru = {lat: -25.363, lng: 131.044};" \
-            "\nvar map = new google.maps.Map(document.getElementById('map'), {" \
-            "\nzoom: 4," \
-            "\ncenter: uluru" \
-            "\n});" \
-            "\nvar marker = new google.maps.Marker({" \
-            "\nposition: uluru," \
-            "\nmap: map" \
-            "\n});" \
-            "\n}" \
-            "\n</script>" \
-            "\n<script async defer" \
-            "\nsrc='https://maps.googleapis.com/maps/api/js?key=AIzaSyD7u1GGzhAgTUwKDul3YNJ3-4Qx_Mw3OIU&callback=initMap'>" \
-            "\n</script>"
 
 _HTML_BANNER_FOOTER = "\n</body>\n</html>"
+
+file = open("/hometu/etudiants/e/l/E168076R/PycharmProjects/PythonWebService/core/website/webapp/views/google_map.html","r")
+_HTML_MAP = file.read()
+file.close()
 
 # @route('/')
 # def serve_homepage():
@@ -86,6 +75,7 @@ def serve_js_files(jsFile):
 
 @get('/website/webapp/views/traitement/')
 def do_process():
+    print(_HTML_MAP)
     li_ville = request.query["li_ville"]
     li_sport = request.query["li_sport"]
 
@@ -96,7 +86,7 @@ def do_process():
         if li_sport == "":
             res = server.__query_city(conn,html.escape(li_ville))
         else :
-            res = server.__query_all(conn)
+            res = server.__query_city_and_act(conn,html.escape(li_ville),html.escape(li_sport))
 
     server.__close(conn)
     li = ""
