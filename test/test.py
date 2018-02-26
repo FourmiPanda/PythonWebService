@@ -6,11 +6,20 @@ conn = server.__start()
 
 print("Connected")
 
+print("Voulez vous rafraichir la base de donnée ? (o/n)")
 
-mat = parsing.remplirInst()
-#server.__createTable(conn, "testCreation")
+m=input()
 
-server.__query_city(conn)
+if m == "o" or m == "O":
+    server.__refresh_DB(conn)
+
+print("Taper le nom d'une ville : ")
+m = input()
+
+while m!="quit":
+    print("Taper le nom d'une ville : ")
+    server.__query_city(conn, m)
+    m=input()
 
 server.__close(conn)
 

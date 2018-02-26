@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import mysql.connector
 import config,html
+import parsing,server
 from mysql.connector import errorcode
 
 
@@ -23,6 +24,19 @@ def __query_city(conn,city):
     cur.execute(query)
     for (pseudo) in cur:
         print(pseudo)
+
+
+def __refresh_DB(conn):
+    print("Création des matrices")
+    mat1 = parsing.remplirInst()
+    print("Fin mat1 remplirInst()")
+    mat2 = parsing.remplirEquip()
+    print("Fin mat2 remplirEquip()")
+    mat3 = parsing.remplirActi()
+    print("Fin mat3 remplirActi()")
+    server.__createTable(conn, "Installations", mat1)
+    server.__createTable(conn, "Equipements", mat2)
+    server.__createTable(conn, "Activites", mat3)
 
 
 def __createTable(conn,name,mat):
