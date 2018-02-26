@@ -26,6 +26,32 @@ def __query_city(conn,city):
     return result
 
 
+def __query_city_and_act(conn,city,act):
+    query = "SELECT * from Installations where Commune='"+html.escape(city)+"' and TypeAct='"+html.escape(act)+"'"
+    cur = conn.cursor(buffered=True)
+    cur.execute(query)
+    result = cur.fetchall()
+    return result
+
+
+
+def __get_city(conn):
+    query = "SELECT DISTINCT Commune from Installations ORDER BY 1 ASC"
+    cur = conn.cursor(buffered=True)
+    cur.execute(query)
+    result = cur.fetchall()
+    return result
+
+
+def __get_sport(conn):
+    query = "SELECT DISTINCT TypeAct from Installations ORDER BY 1 ASC"
+    cur = conn.cursor(buffered=True)
+    cur.execute(query)
+    result = cur.fetchall()
+    return result
+
+
+
 def __refresh_DB(conn):
     print("Création des matrices")
     mat1 = parsing.remplirInst()
