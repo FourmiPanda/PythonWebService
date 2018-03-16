@@ -1,10 +1,11 @@
 from bottle import route, run, template,static_file,get,request
-import server,html
+import server,html,config
 
 import bottle
 
+conf = config.CONF()
 
-bottle.TEMPLATE_PATH.insert(0, '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/PythonWebService/core/website/webapp/views')
+bottle.TEMPLATE_PATH.insert(0, conf.CONST_PATH+'/PythonWebService/PythonWebService/core/website/webapp/views')
 
 _HTML_BANNER_HEADER = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>" \
                                                            "\n<title>Recherche</title>\n<link rel='stylesheet' href='/website/webapp/static/css/style.css'>\n</head>\n<body>"
@@ -15,7 +16,8 @@ _HTML_BANNER_HEADER2 = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>"
 
 _HTML_BANNER_FOOTER = "\n</body>\n</html>"
 
-file = open("/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/views/google_map.html","r")
+file = open(conf.CONST_PATH+"/PythonWebService/core/website/webapp/views/google_map.html","r")
+print("Lecture du fichier google map")
 _HTML_MAP = file.read()
 file.close()
 
@@ -56,7 +58,7 @@ def serve_homepage():
 #Hosts html file which will be invoked from browser.
 @route('/website/webapp/views/<staticFile>')
 def serve_static_file(staticFile):
-    filePath = '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/views/'
+    filePath = conf.CONST_PATH+'/PythonWebService/core/website/webapp/views/'
     return static_file(staticFile, filePath)
 
 #host css files which will be invoked implicitly by your html files.
@@ -64,17 +66,18 @@ def serve_static_file(staticFile):
 @route('/website/webapp/views/traitement/<cssFile>')
 def serve_css_files(cssFile):
     print("load css")
-    filePath = '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/static/css/'
+    filePath = conf.CONST_PATH+'/PythonWebService/core/website/webapp/static/css/'
     return static_file(cssFile, filePath)
 
 # host js files which will be invoked implicitly by your html files.
 @route('/website/webapp/static/js/<jsFile>')
 def serve_js_files(jsFile):
-    filePath = '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/static/js/'
+    filePath = conf.CONST_PATH+'/PythonWebService/core/website/webapp/static/js/'
     return static_file(jsFile, filePath)
 
 @get('/website/webapp/views/traitement/')
 def do_process():
+    print("TRAITEMENT")
     print(_HTML_MAP)
     li_ville = request.query["li_ville"]
     li_sport = request.query["li_sport"]

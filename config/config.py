@@ -10,3 +10,4 @@ class CONF():
     CONST_PASSWORD = "E168076R"
     CONST_HOST = "infoweb"
     CONST_DATABASE = "E168076R"
+    CONST_PATH = "/hometu/etudiants/e/l/E168076R/PycharmProjects"
