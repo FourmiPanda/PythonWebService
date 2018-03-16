@@ -4,7 +4,7 @@ import server,html
 import bottle
 
 
-bottle.TEMPLATE_PATH.insert(0, '/hometu/etudiants/e/l/E168076R/PycharmProjects/PythonWebService/core/website/webapp/views')
+bottle.TEMPLATE_PATH.insert(0, '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/PythonWebService/core/website/webapp/views')
 
 _HTML_BANNER_HEADER = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>" \
                                                            "\n<title>Recherche</title>\n<link rel='stylesheet' href='/website/webapp/static/css/style.css'>\n</head>\n<body>"
@@ -15,7 +15,7 @@ _HTML_BANNER_HEADER2 = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>"
 
 _HTML_BANNER_FOOTER = "\n</body>\n</html>"
 
-file = open("/hometu/etudiants/e/l/E168076R/PycharmProjects/PythonWebService/core/website/webapp/views/google_map.html","r")
+file = open("/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/views/google_map.html","r")
 _HTML_MAP = file.read()
 file.close()
 
@@ -56,7 +56,7 @@ def serve_homepage():
 #Hosts html file which will be invoked from browser.
 @route('/website/webapp/views/<staticFile>')
 def serve_static_file(staticFile):
-    filePath = '/hometu/etudiants/e/l/E168076R/PycharmProjects/PythonWebService/core/website/webapp/views/'
+    filePath = '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/views/'
     return static_file(staticFile, filePath)
 
 #host css files which will be invoked implicitly by your html files.
@@ -64,13 +64,13 @@ def serve_static_file(staticFile):
 @route('/website/webapp/views/traitement/<cssFile>')
 def serve_css_files(cssFile):
     print("load css")
-    filePath = '/hometu/etudiants/e/l/E168076R/PycharmProjects/PythonWebService/core/website/webapp/static/css/'
+    filePath = '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/static/css/'
     return static_file(cssFile, filePath)
 
 # host js files which will be invoked implicitly by your html files.
 @route('/website/webapp/static/js/<jsFile>')
 def serve_js_files(jsFile):
-    filePath = '/hometu/etudiants/e/l/E168076R/PycharmProjects/PythonWebService/core/website/webapp/static/js/'
+    filePath = '/hometu/etudiants/j/o/E166294E/TechProd/TD2/PythonWebService/core/website/webapp/static/js/'
     return static_file(jsFile, filePath)
 
 @get('/website/webapp/views/traitement/')
@@ -97,6 +97,6 @@ def do_process():
         li+="</tr>"
 
 
-    return _HTML_BANNER_HEADER2+"<p id='title'>Vous avez rechercher : "+str(li_ville)+" et "+str(li_sport)+"</p>"+"<div><table>"+str(li)+"</table></div>"+_HTML_MAP+_HTML_BANNER_FOOTER
+    return _HTML_BANNER_HEADER2+"<p id='title'>Vous avez recherché : "+str(li_ville)+" et "+str(li_sport)+"</p>"+"<div><table>"+str(li)+"</table></div>"+_HTML_MAP+_HTML_BANNER_FOOTER
 
 run(host='localhost', port=1337)
