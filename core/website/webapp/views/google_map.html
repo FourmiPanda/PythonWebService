@@ -1,4 +1,5 @@
 <div id="map" style="width:600px; height:400px;margin:0 auto;"></div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>
 var myLatlng;
 var map;
@@ -25,32 +26,54 @@ function initMap() {
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
-var locations = [
-        {lat: -31.563910, lng: 147.154312},
-        {lat: -33.718234, lng: 150.363181},
-        {lat: -33.727111, lng: 150.371124},
-        {lat: -33.848588, lng: 151.209834},
-        {lat: -33.851702, lng: 151.216968},
-        {lat: -34.671264, lng: 150.863657},
-        {lat: -35.304724, lng: 148.662905},
-        {lat: -36.817685, lng: 175.699196},
-        {lat: -36.828611, lng: 175.790222},
-        {lat: -37.750000, lng: 145.116667},
-        {lat: -37.759859, lng: 145.128708},
-        {lat: -37.765015, lng: 145.133858},
-        {lat: -37.770104, lng: 145.143299},
-        {lat: -37.773700, lng: 145.145187},
-        {lat: -37.774785, lng: 145.137978},
-        {lat: -37.819616, lng: 144.968119},
-        {lat: -38.330766, lng: 144.695692},
-        {lat: -39.927193, lng: 175.053218},
-        {lat: -41.330162, lng: 174.865694},
-        {lat: -42.734358, lng: 147.439506},
-        {lat: -42.734358, lng: 147.501315},
-        {lat: -42.735258, lng: 147.438000},
-        {lat: -43.999792, lng: 170.463352}
-      ]
 
+  var tab = new Array();
+  var tab2 = new Array();
+   /*var locations = [];*/
+  $(".row").each(function() {
+    var value = $(this).text();
+    tab.push($(this)[0]["cells"][0]["textContent"]);
+    tab2.push($(this)[0]["cells"][1]["textContent"]);
+  });
+  var tab3 = new Array();
+  tab3.push(tab);
+  tab3.push(tab2);
+  console.log(tab3);
+
+  tab3.forEach(function(item){
+    console.log(item);
+    /*locations.push({lat: item[0], lng: item[1]});*/
+  });
+  /*console.log(locations);*/
+
+
+
+
+var locations = [
+        {lat: 47.563910, lng: -2.154312},
+        {lat: 47.718234, lng: -1.363181},
+        {lat: 47.727111, lng: -2.371124},
+        {lat: 47.848588, lng: -2.209834},
+        {lat: 47.851702, lng: -2.216968},
+        {lat: 47.671264, lng: -1.863657},
+        {lat: 47.304724, lng: -2.662905},
+        {lat: 46.817685, lng: -2.699196},
+        {lat: 47.828611, lng: -1.790222},
+        {lat: 47.750000, lng: -2.116667},
+        {lat: 47.759859, lng: -2.128708},
+        {lat: 47.765015, lng: -2.133858},
+        {lat: 47.770104, lng: -2.143299},
+        {lat: 47.773700, lng: -2.145187},
+        {lat: 47.774785, lng: -2.137978},
+        {lat: 47.819616, lng: -2.968119},
+        {lat: 47.330766, lng: -2.695692},
+        {lat: 46.927193, lng: -2.053218},
+        {lat: 47.330162, lng: -1.865694},
+        {lat: 47.734358, lng: -2.439506},
+        {lat: 47.734358, lng: -2.501315},
+        {lat: 47.735258, lng: -2.438000},
+        {lat: 46.999792, lng: -2.463352}
+      ]
 
 
 
