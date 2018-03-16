@@ -38,7 +38,7 @@ def __query_act(conn,act):
 
 def __query_city_and_act(conn,city,act):
     print("QueryCity&Act")
-    query = "SELECT * from Installations where Commune='"+html.escape(city)+"' and TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
+    query = "SELECT * from Activites where Commune='"+html.escape(city)+"' and TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     result = cur.fetchall()
@@ -63,7 +63,7 @@ def __get_city(conn):
 
 
 def __get_sport(conn):
-    query = "SELECT DISTINCT TypeAct from Installations ORDER BY 1 ASC"
+    query = "SELECT DISTINCT TypeAct from Activites order by 1 ASC"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     result = cur.fetchall()
@@ -73,15 +73,20 @@ def __get_sport(conn):
 
 def __refresh_DB(conn):
     print("Création des matrices")
+
     mat1 = parsing.remplirInst()
     print("Fin mat1 remplirInst()")
-    mat2 = parsing.remplirEquip()
-    print("Fin mat2 remplirEquip()")
-    mat3 = parsing.remplirActi()
-    print("Fin mat3 remplirActi()")
     server.__createTable(conn, "Installations", mat1)
-    server.__createTable(conn, "Equipements", mat2)
-    server.__createTable(conn, "Activites", mat3)
+
+    mat1 = parsing.remplirEquip()
+    print("Fin mat2 remplirEquip()")
+    server.__createTable(conn, "Equipements", mat1)
+
+    mat1 = parsing.remplirActi()
+    print("Fin mat3 remplirActi()")
+    server.__createTable(conn, "Activites", mat1)
+
+    print(mat1)
 
 
 def __createTable(conn,name,mat):
@@ -102,7 +107,7 @@ def __createTable(conn,name,mat):
         newlist.append(i)
 
 
-    table_string = ""
+
     table_string = "CREATE TABLE "+name+" ("
     for val in newlist:
         if val == newlist[len(newlist)-1]:
@@ -140,6 +145,7 @@ def __createTable(conn,name,mat):
         query+=")"
         print(query)
         cur.execute(query)
+        conn.commit()
     cursor.close()
 
 

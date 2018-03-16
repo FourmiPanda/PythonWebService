@@ -31,18 +31,18 @@ def serve_homepage():
     conn = server.__start();
     liste_ville = server.__get_city(conn);
     liste_sport = server.__get_sport(conn);
-
+    print(liste_sport)
     li_ville = ""
-    li_ville+="\n<SELECT name='li_ville'>"
+    li_ville+="\n<select name='li_ville'>"
     for val2 in liste_ville:
-        li_ville+="\n<OPTION>"+val2[0]+"<OPTION>"
-    li_ville+="\n</SELECT>"
+        li_ville+="\n<option>"+val2[0]+"</option>"
+    li_ville+="\n</select>"
 
     li_Sport = ""
-    li_Sport+="\n<SELECT name='li_sport'>"
+    li_Sport+="\n<select name='li_sport'>"
     for val2 in liste_sport:
-        li_Sport+="\n<OPTION>"+val2[0]+"<OPTION>"
-    li_Sport+="\n</SELECT>"
+        li_Sport+="\n<option>"+val2[0]+"</option>"
+    li_Sport+="\n</select>"
 
 
 
