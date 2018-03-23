@@ -58,6 +58,7 @@ def do_process():
     li_sport = request.forms.get("sport")
 
     conn = server.__start()
+
     if li_ville == "":
         res = server.__query_act(conn,html.escape(li_sport))
     else :
