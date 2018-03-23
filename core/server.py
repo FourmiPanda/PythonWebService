@@ -38,7 +38,7 @@ def __query_act(conn,act):
 
 def __query_city_and_act(conn,city,act):
     print("QueryCity&Act")
-    query = "SELECT a.EquId from Activites a where a.Commune='"+city+"' and a.TypeAct='"+act+"' ORDER BY 1 ASC"
+    query = "SELECT a.*, e.Latitude, e.Longitude from Activites a, Equipements e where a.EquId=e.EquId and a.Commune='"+city+"' and a.TypeAct='"+act+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
     print(query)
     cur.execute(query)
