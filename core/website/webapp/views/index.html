@@ -11,14 +11,14 @@
 	    <form action="/website/webapp/views/traitement/" method="POST">
 		    <select name="ville">
                 % for ville in listeVille:
-                <OPTION value={{ville[0]}}>
+                <OPTION value="{{ville[0]}}">
                     {{ville[0]}}
                 </OPTION>
                 % end
             </select>
 		    <select name="sport">
                 % for sport in listeSport:
-                <OPTION value={{sport[0]}}>
+                <OPTION value="{{sport[0]}}">
                     {{sport[0]}}
                 </OPTION>
                 % end
