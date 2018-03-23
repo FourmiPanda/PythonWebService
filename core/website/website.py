@@ -71,11 +71,13 @@ def serve_js_files(jsFile):
 @view('Template.html')
 def do_process():
     print("TRAITEMENT")
-    print(_HTML_MAP)
+
 
 
     li_ville = request.forms.get("ville")
     li_sport = request.forms.get("sport")
+
+
 
     conn = server.__start()
     if li_ville == "":
@@ -86,7 +88,7 @@ def do_process():
         else :
             res = server.__query_city_and_act(conn,html.escape(li_ville),html.escape(li_sport))
     server.__close(conn)
-
+    print(res)
     my_dict = {'res': res, 'nbRes': len(res)}
     return template("Template.html", my_dict)
 
