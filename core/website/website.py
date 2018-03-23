@@ -54,18 +54,19 @@ def serve_js_files(jsFile):
 def do_process():
     print("TRAITEMENT")
 
-    li_ville = request.forms.get("ville")
-    li_sport = request.forms.get("sport")
-
+    li_ville = request.forms.ville
+    li_sport = request.forms.sport
     conn = server.__start()
 
     if li_ville == "":
-        res = server.__query_act(conn,html.escape(li_sport))
+        res = server.__query_act(conn,li_sport)
     else :
         if li_sport == "":
-            res = server.__query_city(conn,html.escape(li_ville))
+            res = server.__query_city(conn,li_ville)
         else :
-            res = server.__query_city_and_act(conn,html.escape(li_ville),html.escape(li_sport))
+            res = server.__query_city_and_act(conn,li_ville,li_sport)
+            print(type(li_sport))
+
     server.__close(conn)
     print(res)
     my_dict = {'res': res, 'nbRes': len(res)}
