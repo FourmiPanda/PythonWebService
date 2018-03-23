@@ -10,7 +10,7 @@
 
     <table id="données">
         % for item in res:
-            <tr>
+            <tr class="row">
                 <td>{{item[0]}}</td>
                 <td>{{item[1]}}</td>
                 <td>{{item[2]}}</td>
@@ -50,84 +50,11 @@ function initMap() {
   var tabLat = new Array();
   var tabLng = new Array();
   var locations = [];
-  $(".row").each(function() {
-    var value = $(this).text();
-    tabLat.push($(this)[0]["cells"][0]["textContent"]);
-    tabLng.push($(this)[0]["cells"][1]["textContent"]);
+  $(".row").each(function(i, data) {
+     locations.push({lat : parseInt(data.children[3].innerHTML,10), lng: parseInt(data.children[4].innerHTML,10)});
   });
-  var tabLoc = new Array();
-  tabLoc.push(tab);
-  tabLoc.push(tab2);
-  console.log(tabLoc);
+      console.log(locations);
 
-  tabLoc.forEach(function(item){
-    console.log(item);
-    locations.push({lat: item[0], lng: item[1]});
-  });
-  console.log(locations);
-
-
-
-
-var locations = [
-        {lat: 47.563910, lng: -2.154312},
-        {lat: 47.718234, lng: -1.363181},
-        {lat: 47.727111, lng: -2.371124},
-        {lat: 47.848588, lng: -2.209834},
-        {lat: 47.851702, lng: -2.216968},
-        {lat: 47.671264, lng: -1.863657},
-        {lat: 47.304724, lng: -2.662905},
-        {lat: 46.817685, lng: -2.699196},
-        {lat: 47.828611, lng: -1.790222},
-        {lat: 47.750000, lng: -2.116667},
-        {lat: 47.759859, lng: -2.128708},
-        {lat: 47.765015, lng: -2.133858},
-        {lat: 47.770104, lng: -2.143299},
-        {lat: 47.773700, lng: -2.145187},
-        {lat: 47.774785, lng: -2.137978},
-        {lat: 47.819616, lng: -2.968119},
-        {lat: 47.330766, lng: -2.695692},
-        {lat: 46.927193, lng: -2.053218},
-        {lat: 47.330162, lng: -1.865694},
-        {lat: 47.734358, lng: -2.439506},
-        {lat: 47.734358, lng: -2.501315},
-        {lat: 47.735258, lng: -2.438000},
-        {lat: 46.999792, lng: -2.463352}
-      ]
-
-
-
-$("#search").autocomplete({
-  source: function( request, response ) {
-    $.ajax({
-      dataType: "json",
-      type : 'GET',
-      data: {
-        commune :$(this)[0].term,
-        maxRows:50
-      },
-      url: 'website/webapp/views/getCity.php',
-    }).done(function(data){
-      console.log(data);
-      var data2 = data.map(function (item) {
-        console.log(item);
-        return {
-          label :item.Ville,
-          value:item.Ville,
-        };
-      });
-      response(data2);
-    });
-  },
-  classes: {
-    "ui-autocomplete": "highlight"
-  },
-  select:function (event,ui) {
-    isSelected = true;
-    search = ui.item.value;
-    console.log( "Selected: " + ui.item.value  );
-  }
-});
 
 
 </script>
