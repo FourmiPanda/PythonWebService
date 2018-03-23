@@ -8,11 +8,14 @@
 <body>
     <h1>Il y a {{nbRes}} résultats !</h1>
 
-    <table>
+    <table id="données">
         % for item in res:
             <tr>
                 <td>{{item[0]}}</td>
-
+                <td>{{item[1]}}</td>
+                <td>{{item[2]}}</td>
+                <td>{{item[3]}}</td>
+                <td>{{item[4]}}</td>
             </tr>
         % end
     </table>
