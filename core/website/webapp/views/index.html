@@ -7,11 +7,26 @@
 </head>
 <body>
     <section class="webdesigntuts-workshop">
-        <h1 id="title">Bienvenue sur SportLooker !</h1>
-	    <form action="/website/webapp/views/traitement/" method="GET">
-		    <input type="search" name="search" placeholder="Que recherchez-vous ?">
+        <h1 id="title">Bienvenue sur balance ton sport !</h1>
+	    <form action="/website/webapp/views/traitement/" method="POST">
+		    <select name="ville">
+                % for ville in listeVille:
+                <OPTION value={{ville[0]}}>
+                    {{ville[0]}}
+                </OPTION>
+                % end
+            </select>
+		    <select name="sport">
+                % for sport in listeSport:
+                <OPTION value={{sport[0]}}>
+                    {{sport[0]}}
+                </OPTION>
+                % end
+            </select>
 		    <button>Rechercher</button>
 	    </form>
     </section>
+
+
 </body>
 </html>

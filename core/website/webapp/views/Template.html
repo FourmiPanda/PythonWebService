@@ -1,5 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultat</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Il y a {{nbRes}} résultats !</h1>
+
+    <table>
+        % for item in res:
+            <tr>
+                <td>{{item.nom}}</td>
+                <td>{{item.act}}</td>
+                <td>{{item.city}}</td>
+            </tr>
+        % end
+    </table>
 <div id="map" style="width:600px; height:400px;margin:0 auto;"></div>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>
 var myLatlng;
 var map;
@@ -117,3 +135,7 @@ $("#search").autocomplete({
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE1tBoaXKJJpnSAEEN3LpzAF7p3G6-Zo8&callback=initMap" async defer>
     google.maps.event.addDomListener(window,'load', initMap);
 </script>
+
+
+</body>
+</html>

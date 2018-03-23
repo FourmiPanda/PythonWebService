@@ -29,7 +29,7 @@ def __query_city(conn,city):
 
 def __query_act(conn,act):
     print("QueryAct")
-    query = "SELECT * from Installations where TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
+    query = "SELECT * from Activites where TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
     result = cur.fetchall()
