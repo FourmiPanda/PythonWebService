@@ -7,6 +7,11 @@ infosInstallations = dict()
 infosEquipements = dict()
 infosActivites = dict()
 
+# tab= [
+#          ("http://data.paysdelaloire.fr/api/publication/23440003400026_J335/installations_table/content/?format=json", [...]),
+#     [..],
+#     ["EquId", "TypeAct", "Commune"]
+#     ]
 
 def remplirInst():
     '''

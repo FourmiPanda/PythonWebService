@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import mysql.connector
 import config,html
-import parsing,server
+import parsing,server,re
 from mysql.connector import errorcode
 
 
@@ -38,8 +38,9 @@ def __query_act(conn,act):
 
 def __query_city_and_act(conn,city,act):
     print("QueryCity&Act")
-    query = "SELECT * from Activites where Commune='"+html.escape(city)+"' and TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
+    query = "SELECT a.EquId from Activites a where a.Commune='"+city+"' and a.TypeAct='"+act+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
+    print(query)
     cur.execute(query)
     result = cur.fetchall()
     return result
@@ -85,8 +86,6 @@ def __refresh_DB(conn):
     mat1 = parsing.remplirActi()
     print("Fin mat3 remplirActi()")
     server.__createTable(conn, "Activites", mat1)
-
-    print(mat1)
 
 
 def __createTable(conn,name,mat):
@@ -139,9 +138,10 @@ def __createTable(conn,name,mat):
         query = "INSERT INTO "+name+" values("
         for type in newlist:
             if type == newlist[len(newlist) - 1]:
-                query += '"' +html.escape(str(mat[str(ens)][type])) + '"'
+                query += '"' +re.escape(str(mat[str(ens)][type])) + '"'
+                print(query)
             else:
-                query += '"' + html.escape(str(mat[str(ens)][type])) + '",'
+                query += '"' + re.escape(str(mat[str(ens)][type])) + '",'
         query+=")"
         print(query)
         cur.execute(query)
