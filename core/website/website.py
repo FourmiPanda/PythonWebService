@@ -1,14 +1,11 @@
-from bottle import route, run, template,static_file,get,request,view,post
+from bottle import route, run, template,static_file,get,request
 import server,html,config
-
 
 import bottle
 
-
-
 conf = config.CONF()
-bottle.TEMPLATE_PATH.insert(0,conf.CONST_PATH+'/PythonWebService/core/website/webapp/views')
 
+bottle.TEMPLATE_PATH.insert(0, conf.CONST_PATH+'/PythonWebService/PythonWebService/core/website/webapp/views')
 
 _HTML_BANNER_HEADER = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='utf-8'>" \
                                                            "\n<title>Recherche</title>\n<link rel='stylesheet' href='/website/webapp/static/css/style.css'>\n</head>\n<body>"
@@ -32,19 +29,30 @@ file.close()
 #     return template('index.html')
 
 @route('/')
-@view("index.html")
 def serve_homepage():
     conn = server.__start();
-
     liste_ville = server.__get_city(conn);
     liste_sport = server.__get_sport(conn);
-
     print(liste_sport)
+    li_ville = ""
+    li_ville+="\n<select name='li_ville'>"
+    for val2 in liste_ville:
+        li_ville+="\n<option>"+val2[0]+"</option>"
+    li_ville+="\n</select>"
+
+    li_Sport = ""
+    li_Sport+="\n<select name='li_sport'>"
+    for val2 in liste_sport:
+        li_Sport+="\n<option>"+val2[0]+"</option>"
+    li_Sport+="\n</select>"
+
+
+
 
     server.__close(conn)
+    return _HTML_BANNER_HEADER + "<section class='webdesigntuts-workshop'><h1 id='title'>Bienvenue sur SportLooker !</h1><form action='/website/webapp/views/traitement/' method='GET'>" \
+                                 +str(li_ville)+str(li_Sport)+"<br><button>Rechercher</button></form></section>" + _HTML_BANNER_FOOTER
 
-    my_dict = {'listeSport': liste_sport, 'listeVille': liste_ville}
-    return template("index.html", my_dict)
 
 
 #Hosts html file which will be invoked from browser.
@@ -67,17 +75,14 @@ def serve_js_files(jsFile):
     filePath = conf.CONST_PATH+'/PythonWebService/core/website/webapp/static/js/'
     return static_file(jsFile, filePath)
 
-@post('/website/webapp/views/traitement/')
-@view('Template.html')
+@get('/website/webapp/views/traitement/')
 def do_process():
     print("TRAITEMENT")
     print(_HTML_MAP)
+    li_ville = request.query["li_ville"]
+    li_sport = request.query["li_sport"]
 
-
-    li_ville = request.forms.get("ville")
-    li_sport = request.forms.get("sport")
-
-    conn = server.__start()
+    conn = server.__start();
     if li_ville == "":
         res = server.__query_act(conn,html.escape(li_sport))
     else :
@@ -85,12 +90,16 @@ def do_process():
             res = server.__query_city(conn,html.escape(li_ville))
         else :
             res = server.__query_city_and_act(conn,html.escape(li_ville),html.escape(li_sport))
+
     server.__close(conn)
+    li = ""
+    for val in res:
+        li+="<tr>"
+        for val2 in val:
+            li+="<td>"+val2+"<td>"
+        li+="</tr>"
 
-    my_dict = {'res': res, 'nbRes': len(res)}
-    return template("Template.html", my_dict)
 
-
-
+    return _HTML_BANNER_HEADER2+"<p id='title'>Vous avez recherché : "+str(li_ville)+" et "+str(li_sport)+"</p>"+"<div><table>"+str(li)+"</table></div>"+_HTML_MAP+_HTML_BANNER_FOOTER
 
 run(host='localhost', port=1337)
