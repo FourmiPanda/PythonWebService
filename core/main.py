@@ -2,18 +2,18 @@ from core import server,parsing
 
 print("Connexion a la DB")
 
-conn = server.__start()
+conn = server.start()
 
 print("Connected")
 
-server.__refresh_DB(conn)
+server.refresh_DB(conn)
 
 mat = parsing.remplirActi()
 print(mat)
 
-res = server.__get_sport(conn)
+res = server.get_sport(conn)
 print(res)
 
-server.__close(conn)
+server.close(conn)
 
 print("Disonnected")

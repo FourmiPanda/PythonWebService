@@ -16,15 +16,15 @@ file = open(conf.CONST_PATH+"/PythonWebService/core/website/webapp/views/google_
 @route('/')
 @view("index.html")
 def serve_homepage():
-    conn = server.__start();
+    conn = server.start();
 
-    liste_ville = server.__get_city(conn);
-    liste_sport = server.__get_sport(conn);
+    liste_ville = server.get_city(conn);
+    liste_sport = server.get_sport(conn);
     liste_niveau = server.getNiveau(conn);
 
     print(liste_niveau)
 
-    server.__close(conn)
+    server.close(conn)
 
     my_dict = {'listeSport': liste_sport, 'listeVille': liste_ville, 'listeNiveau' : liste_niveau}
     return template("index.html", my_dict)
@@ -58,18 +58,18 @@ def do_process():
     li_ville = request.forms.ville
     li_sport = request.forms.sport
 
-    conn = server.__start()
+    conn = server.start()
 
     if li_ville == "":
-        res = server.__query_act(conn,li_sport)
+        res = server.query_act(conn,li_sport)
     else :
         if li_sport == "":
-            res = server.__query_city(conn,li_ville)
+            res = server.query_city(conn,li_ville)
         else :
-            res = server.__query_city_and_act(conn,li_ville,li_sport)
+            res = server.query_city_and_act(conn,li_ville,li_sport)
             print(type(li_sport))
 
-    server.__close(conn)
+    server.close(conn)
     print(res)
     my_dict = {'res': res, 'nbRes': len(res)}
     return template("Template.html", my_dict)

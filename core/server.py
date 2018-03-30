@@ -6,7 +6,7 @@ import parsing,server,re
 from mysql.connector import errorcode
 
 
-def __start():
+def start():
     conf = config.CONF()
     cnx = mysql.connector.connect(user=conf.CONST_USER, password=conf.CONST_PASSWORD,
                                   host=conf.CONST_HOST,
@@ -14,11 +14,11 @@ def __start():
     return cnx
 
 
-def __close(conn):
+def close(conn):
     conn.close()
 
 
-def __query_city(conn,city):
+def query_city(conn,city):
     print("QueryCity")
     query = "SELECT * from Installations where Commune='"+html.escape(city)+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
@@ -27,7 +27,7 @@ def __query_city(conn,city):
     return result
 
 
-def __query_act(conn,act):
+def query_act(conn,act):
     print("QueryAct")
     query = "SELECT * from Activites where TypeAct='"+html.escape(act)+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
@@ -36,7 +36,7 @@ def __query_act(conn,act):
     return result
 
 
-def __query_city_and_act(conn,city,act):
+def query_city_and_act(conn,city,act):
     print("QueryCity&Act")
     query = "SELECT a.*, e.Latitude, e.Longitude from Activites a, Equipements e where a.EquId=e.EquId and a.Commune='"+city+"' and a.TypeAct='"+act+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
@@ -46,7 +46,7 @@ def __query_city_and_act(conn,city,act):
     return result
 
 
-def __query_all(conn):
+def query_all(conn):
     print("QueryAll")
     query = "SELECT * from Installations ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
@@ -55,7 +55,7 @@ def __query_all(conn):
     return result
 
 
-def __get_city(conn):
+def get_city(conn):
     query = "SELECT DISTINCT Commune from Installations ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
@@ -63,7 +63,7 @@ def __get_city(conn):
     return result
 
 
-def __get_sport(conn):
+def get_sport(conn):
     query = "SELECT DISTINCT TypeAct from Activites order by 1 ASC"
     cur = conn.cursor(buffered=True)
     cur.execute(query)
@@ -79,23 +79,23 @@ def getNiveau(conn):
 
 
 
-def __refresh_DB(conn):
+def refresh_DB(conn):
     print("Création des matrices")
 
     mat1 = parsing.remplirInst()
     print("Fin mat1 remplirInst()")
-    server.__createTable(conn, "Installations", mat1)
+    server.createTable(conn, "Installations", mat1)
 
     mat1 = parsing.remplirEquip()
     print("Fin mat2 remplirEquip()")
-    server.__createTable(conn, "Equipements", mat1)
+    server.createTable(conn, "Equipements", mat1)
 
     mat1 = parsing.remplirActi()
     print("Fin mat3 remplirActi()")
-    server.__createTable(conn, "Activites", mat1)
+    server.createTable(conn, "Activites", mat1)
 
 
-def __createTable(conn,name,mat):
+def createTable(conn,name,mat):
 
     try:
         query = ("DROP TABLE "+name+";")

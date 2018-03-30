@@ -44,6 +44,9 @@
                 </OPTION>
                  % end
             </select>
+            <input name="geoloc" type="checkbox"/>
+            <input id="posLat" name="posLat" value="" type="text" hidden/>
+            <input id="posLng" name="posLng" value="" type="text" hidden/>
 <br>
 		    <button id="button" class="BT-OH-BR-R6-NF-FH-FP-TU-PT">
       <canvas id="canvas"></canvas>
@@ -65,6 +68,9 @@ if (navigator.geolocation) {
               lng: position.coords.longitude
             };
             console.log(pos);
+            $("#posLat").val(pos.lat);
+            $("#posLng").val(pos.lng);
+
 
           });
 
