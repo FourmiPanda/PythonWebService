@@ -23,6 +23,13 @@
                 </OPTION>
                 % end
             </select>
+            <select name="niveau sportif">
+                % for niveau in listeNiveau:
+                <OPTION value="{{niveau[0]}}">
+                    {{niveau[0]}}
+                </OPTION>
+                 % end
+            </select>
 		    <button>Rechercher</button>
 	    </form>
     </section>

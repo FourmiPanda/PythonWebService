@@ -20,12 +20,13 @@ def serve_homepage():
 
     liste_ville = server.__get_city(conn);
     liste_sport = server.__get_sport(conn);
+    liste_niveau = server.getNiveau(conn);
 
-    print(liste_sport)
+    print(liste_niveau)
 
     server.__close(conn)
 
-    my_dict = {'listeSport': liste_sport, 'listeVille': liste_ville}
+    my_dict = {'listeSport': liste_sport, 'listeVille': liste_ville, 'listeNiveau' : liste_niveau}
     return template("index.html", my_dict)
 
 
@@ -56,6 +57,7 @@ def do_process():
 
     li_ville = request.forms.ville
     li_sport = request.forms.sport
+
     conn = server.__start()
 
     if li_ville == "":

@@ -70,6 +70,13 @@ def __get_sport(conn):
     result = cur.fetchall()
     return result
 
+def getNiveau(conn):
+    query = "SELECT DISTINCT ActNivLib from Activites order by 1 ASC"
+    cur = conn.cursor(buffered=True)
+    cur.execute(query)
+    result = cur.fetchall()
+    return result
+
 
 
 def __refresh_DB(conn):
