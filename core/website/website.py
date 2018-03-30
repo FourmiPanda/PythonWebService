@@ -82,10 +82,10 @@ def mainProcess():
 
     x = request.forms.posLat
     y = request.forms.posLng
+    checkbox = request.forms.geoloc
 
-    print(x)
-
-    if (x != "" and y != ""):
+    if (x != "" and y != "" and checkbox =="on"):
+        raw_data = urlopen("http://data.nantes.fr/api/publication/23440003400026_J335/installations_table/content/?format=json&filter={'"+_l+"':")
         print("normal")
     else:
         res = do_process()
