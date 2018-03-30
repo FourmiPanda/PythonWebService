@@ -51,7 +51,7 @@ function initMap() {
   var tabLng = new Array();
   var locations = [];
   $(".row").each(function(i, data) {
-     locations.push({lat : parseInt(data.children[3].innerHTML,10), lng: parseInt(data.children[4].innerHTML,10)});
+     locations.push({lat : parseFloat(data.children[3].innerHTML,10), lng: parseFloat(data.children[4].innerHTML,10)});
   });
       console.log(locations);
 
