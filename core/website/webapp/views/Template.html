@@ -11,11 +11,11 @@
     <table id="données">
         % for item in res:
             <tr class="row">
-                <td>{{item[1]}}</td>
-                <td>{{item[2]}}</td>
                 <td>{{item[3]}}</td>
-                <td>{{item[4]}}</td>
-                <td>{{item[5]}}</td>
+                <td>{{item[1]}}</td>
+                <td>{{item[0]}}</td>
+                <td hidden>{{item[4]}}</td>
+                <td hidden>{{item[5]}}</td>
             </tr>
         % end
     </table>
@@ -37,11 +37,28 @@ function initMap() {
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         var markers = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
-          });
+        console.log(location)
+
+        var infowindow = new google.maps.InfoWindow({
+          content: "titre"
         });
+
+        var marker = new google.maps.Marker({
+            title: 'Titre',
+            position: location,
+            animation: google.maps.Animation.DROP,
+            label: labels[i % labels.length]
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+
+          return marker;
+        });
+        console.log("Marker : ");
+        console.log(markers)
+
 
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
@@ -50,8 +67,10 @@ function initMap() {
   var tabLat = new Array();
   var tabLng = new Array();
   var locations = [];
+  var name = [];
   $(".row").each(function(i, data) {
      locations.push({lat : parseFloat(data.children[3].innerHTML,10), lng: parseFloat(data.children[4].innerHTML,10)});
+    // name.push(data.children[]);
   });
       console.log(locations);
 
