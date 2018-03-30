@@ -6,6 +6,7 @@ infosG = dict()
 infosInstallations = dict()
 infosEquipements = dict()
 infosActivites = dict()
+url = "http://data.paysdelaloire.fr/api/publication/"
 
 # tab= [
 #          ("http://data.paysdelaloire.fr/api/publication/23440003400026_J335/installations_table/content/?format=json", [...]),
@@ -18,7 +19,7 @@ def remplirInst():
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les installations
     '''
 
-    raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J335/installations_table/content/?format=json")
+    raw_data = urlopen(url+"23440003400026_J335/installations_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
     for key,value in j.items():
@@ -39,7 +40,7 @@ def remplirEquip():
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les equipements
     '''
 
-    raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J336/equipements_table/content/?format=json")
+    raw_data = urlopen(url+"23440003400026_J336/equipements_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
     for key,value in j.items():
@@ -61,7 +62,7 @@ def remplirActi():
     Remplis un tableau contenant les donnees importantes a importer dans la base de donnees concernant les activites
     '''
 
-    raw_data = urlopen("http://data.paysdelaloire.fr/api/publication/23440003400026_J334/equipements_activites_table/content/?format=json")
+    raw_data = urlopen(url+"23440003400026_J334/equipements_activites_table/content/?format=json")
     j = json.loads(raw_data.read().decode('utf-8'))
     compteur = 0
     for key,value in j.items():
@@ -70,6 +71,7 @@ def remplirActi():
                 infosActivites["EquId"] = val["EquipementId"]
                 infosActivites["TypeAct"] = val["ActLib"]
                 infosActivites["Commune"] = val["ComLib"]
+                infosActivites["ActNivLib"] = val["ActNivLib"]
                 infosG[str(compteur)] = copy(infosActivites)
                 compteur = compteur + 1
     return infosG
