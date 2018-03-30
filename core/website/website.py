@@ -50,13 +50,13 @@ def serve_js_files(jsFile):
     filePath = conf.CONST_PATH+'/PythonWebService/core/website/webapp/static/js/'
     return static_file(jsFile, filePath)
 
-@post('/website/webapp/views/traitement/')
-@view('Template.html')
+
 def do_process():
     print("TRAITEMENT")
 
     li_ville = request.forms.ville
     li_sport = request.forms.sport
+    li_niv = request.forms.niveau
 
     conn = server.start()
 
@@ -66,15 +66,30 @@ def do_process():
         if li_sport == "":
             res = server.query_city(conn,li_ville)
         else :
-            res = server.query_city_and_act(conn,li_ville,li_sport)
-            print(type(li_sport))
+            if li_niv == "":
+                res = server.query_city_and_act(conn,li_ville,li_sport)
+            else:
+                res = server.query_city_and_act_and_niv(conn, li_ville,li_sport,li_niv)
 
     server.close(conn)
     print(res)
     my_dict = {'res': res, 'nbRes': len(res)}
     return template("Template.html", my_dict)
 
+@post('/website/webapp/views/traitement/')
+@view('Template.html')
+def mainProcess():
 
+    x = request.forms.posLat
+    y = request.forms.posLng
 
+    print(x)
+
+    if (x != "" and y != ""):
+        print("normal")
+    else:
+        res = do_process()
+
+    return res
 
 run(host='localhost', port=1337)

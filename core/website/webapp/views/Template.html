@@ -6,7 +6,11 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>Il y a {{nbRes}} résultats !</h1>
+<h1>Vous avez recherché le sport "{{res[0][1]}}" dans la commune "{{res[0][3]}}" </h1>
+</br>
+<h2>Le niveau de pratique demandée est de : "{{res[0][0]}}"</h2>
+</br>
+<p>Il y a {{nbRes}} résultat(s) !<p>
 
     <table id="données">
         % for item in res:

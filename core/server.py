@@ -40,7 +40,15 @@ def query_city_and_act(conn,city,act):
     print("QueryCity&Act")
     query = "SELECT a.*, e.Latitude, e.Longitude from Activites a, Equipements e where a.EquId=e.EquId and a.Commune='"+city+"' and a.TypeAct='"+act+"' ORDER BY 1 ASC"
     cur = conn.cursor(buffered=True)
+    cur.execute(query)
+    result = cur.fetchall()
+    return result
+
+def query_city_and_act_and_niv(conn,city,act,niv):
+    print("QueryCity&Act&Lvl")
+    query = "SELECT a.*, e.Latitude, e.Longitude from Activites a, Equipements e where a.EquId=e.EquId and a.Commune='"+city+"' and a.TypeAct='"+act+"' and a.ActNivLib='"+niv+"' ORDER BY 1 ASC"
     print(query)
+    cur = conn.cursor(buffered=True)
     cur.execute(query)
     result = cur.fetchall()
     return result
